@@ -93,7 +93,7 @@ dbUploadServer:
     port: 8000
     portName: http-metrics
   image:
-    repo: 065199070014.dkr.ecr.ap-northeast-2.amazonaws.com/ye/db-upload-service
+    repo: public.ecr.aws/k8s0f8l3/neves/db-upload-server
     tag: latest
   resources:
     requests:
