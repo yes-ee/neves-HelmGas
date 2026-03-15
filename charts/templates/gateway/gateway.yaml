@@ -16,7 +16,6 @@ metadata:
     service.beta.kubernetes.io/aws-load-balancer-ssl-cert: {{ $.Values.gateway.sshArn }}
     service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443"
     {{- end }}
-  namespace: neves
 
 spec:
   gatewayClassName: istio
@@ -29,6 +28,7 @@ spec:
         namespaces:
           from: Same
 
+    {{- if $.Values.gateway.sshArn }}
     - name: neves-https
       hostname: {{ printf "api.%s" $.Values.gateway.rootDomain }}
       port: 443
@@ -36,6 +36,7 @@ spec:
       allowedRoutes:
         namespaces:
           from: Same
+    {{- end }}
 
     - name: monitoring-http
       hostname: {{ printf "mnt.%s" $.Values.gateway.rootDomain }}
@@ -45,6 +46,7 @@ spec:
         namespaces:
           from: All
 
+    {{- if $.Values.gateway.sshArn }}
     - name: monitoring-https
       hostname: {{ printf "mnt.%s" $.Values.gateway.rootDomain }}
       port: 443
@@ -52,3 +54,4 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
+    {{- end }}
