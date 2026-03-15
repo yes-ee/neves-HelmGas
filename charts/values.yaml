@@ -214,7 +214,7 @@ combinedVideoProcessor:
     name: "db-upload"
     image:
       repo: public.ecr.aws/q0h0t2f2/ye/test
-      tag: cba3a19d35556568d91490fa43c1c35f86ed6640
+      tag: latest
     storageMountPath: /recordings
     resources:
       requests:
@@ -237,7 +237,7 @@ combinedVideoProcessor:
     interval: "10s"
     scrapeTimeout: "10s"
   image:
-    tag: bb288b84873c91ec35887556c5f246e3869f5983
+    tag: latest
     repo: public.ecr.aws/q0h0t2f2/ye/test
 ebsStorageClass:
   name: "ebs-sc"
