@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/yes-ee/neves-HelmGas.git
-    targetRevision: main
+    targetRevision: ye
     path: apps
   destination:
     server: https://kubernetes.default.svc

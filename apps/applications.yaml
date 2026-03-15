@@ -52,7 +52,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/yes-ee/neves-HelmGas.git
-    targetRevision: main
+    targetRevision: ye
     path: charts
     helm:
       releaseName: neves-app
