@@ -7,7 +7,7 @@ metadata:
   - resources-finalizer.argocd.argoproj.io
   annotations:
     argocd-image-updater.argoproj.io/image-list: >
-      dbupload=public.ecr.aws/k8s0f8l3/neves/db-upload-server,
+      dbupload=065199070014.dkr.ecr.ap-northeast-2.amazonaws.com/ye/db-upload-service,
       status=public.ecr.aws/k8s0f8l3/neves/status-service,
       user=public.ecr.aws/k8s0f8l3/neves/user_server,
       mail=public.ecr.aws/k8s0f8l3/neves/mail_server,
@@ -51,7 +51,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: ssh://git@github.com/LuckyThreeSeven/HelmGas.git
+    repoURL: https://github.com/yes-ee/neves-HelmGas.git
     targetRevision: main
     path: charts
     helm:

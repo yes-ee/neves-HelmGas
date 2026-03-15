@@ -1,7 +1,8 @@
 teamName: neves
 gateway:
   name: neves
-  sshArn: "arn:aws:acm:ap-northeast-2:622703417916:certificate/d14d598b-3399-4180-9c8e-f9fb009f3075"
+  # sshArn: "arn:aws:acm:ap-northeast-2:622703417916:certificate/d14d598b-3399-4180-9c8e-f9fb009f3075"
+  sshArn: ""
   rootDomain: neves-box.com
 monitoring:
   namespace: monitoring
@@ -92,8 +93,8 @@ dbUploadServer:
     port: 8000
     portName: http-metrics
   image:
-    repo: public.ecr.aws/k8s0f8l3/neves/db-upload-server
-    tag: cba3a19d35556568d91490fa43c1c35f86ed6640
+    repo: 065199070014.dkr.ecr.ap-northeast-2.amazonaws.com/ye/db-upload-service
+    tag: latest
   resources:
     requests:
       memory: "128Mi"
@@ -105,7 +106,7 @@ dbUploadServer:
     aws:
       region: "ap-northeast-2"
       s3:
-        bucket: "neves-video-bucket"
+        bucket: "ye-test-bucket-065199070014-ap-northeast-2-an"
     scanIntervalSeconds: 1
     workers:
       normal: 3
@@ -126,7 +127,7 @@ statusServer:
     db:
       driver: "org.postgresql.Driver"
       ddl: "update"
-      url: "postgresql://neves-db.cz6wi8gag9zx.ap-northeast-2.rds.amazonaws.com"
+      url: "postgresql://neves-db.cb2l3zpriete.ap-northeast-2.rds.amazonaws.com"
       name: nevesdb
     disconnectedCron: "0 0 * * * *"
   destinationRule:
@@ -146,7 +147,7 @@ userServer:
     container: 8000
   config:
     db:
-      host: "neves-db.cz6wi8gag9zx.ap-northeast-2.rds.amazonaws.com"
+      host: "neves-db.cb2l3zpriete.ap-northeast-2.rds.amazonaws.com"
       name: "nevesdb"
       port: "5432"
     corsAllowedOrigins: "https://neves-box.com,http://127.0.0.1:3000,http://localhost:3000"
