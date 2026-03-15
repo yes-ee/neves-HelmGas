@@ -93,7 +93,7 @@ dbUploadServer:
     port: 8000
     portName: http-metrics
   image:
-    repo: public.ecr.aws/k8s0f8l3/neves/db-upload-server
+    repo: public.ecr.aws/q0h0t2f2/ye/test
     tag: latest
   resources:
     requests:
@@ -213,7 +213,7 @@ combinedVideoProcessor:
   dbUploadContainer:
     name: "db-upload"
     image:
-      repo: public.ecr.aws/k8s0f8l3/neves/db-upload-server
+      repo: public.ecr.aws/q0h0t2f2/ye/test
       tag: cba3a19d35556568d91490fa43c1c35f86ed6640
     storageMountPath: /recordings
     resources:
@@ -238,7 +238,7 @@ combinedVideoProcessor:
     scrapeTimeout: "10s"
   image:
     tag: bb288b84873c91ec35887556c5f246e3869f5983
-    repo: public.ecr.aws/k8s0f8l3/neves/db-upload-server
+    repo: public.ecr.aws/q0h0t2f2/ye/test
 ebsStorageClass:
   name: "ebs-sc"
   provisioner: "ebs.csi.aws.com"
