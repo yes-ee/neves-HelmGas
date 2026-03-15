@@ -139,7 +139,7 @@ statusServer:
       maxEjectionPercent: 100
 userServer:
   name: "user"
-  replicas: "1"
+  replicas: "0"
   image:
     repo: "public.ecr.aws/k8s0f8l3/neves/user_server"
     tag: "971b45759155f01f4ff09ad4a50b1ec8b9576d1a"
@@ -153,7 +153,7 @@ userServer:
     corsAllowedOrigins: "https://neves-box.com,http://127.0.0.1:3000,http://localhost:3000"
 mailServer:
   name: "mail"
-  replicas: "1"
+  replicas: "0"
   image:
     repo: "public.ecr.aws/k8s0f8l3/neves/mail_server"
     tag: "971b45759155f01f4ff09ad4a50b1ec8b9576d1a"
@@ -161,7 +161,7 @@ mailServer:
     container: 8000
 playServer:
   name: "play"
-  replicas: "1"
+  replicas: "0"
   image:
     repo: "public.ecr.aws/k8s0f8l3/neves/play_server"
     tag: "923bed41ac543e7dc611ba784b3b029da775af34"
