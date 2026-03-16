@@ -94,7 +94,7 @@ dbUploadServer:
     portName: http-metrics
   image:
     repo: public.ecr.aws/q0h0t2f2/ye/test
-    tag: af21c036c54a76837366a9c7aaa95f88a20e3b83
+    tag: dec4261d2f1f0ecb1d1395f8bb7930f44bb0462c
   resources:
     requests:
       memory: "128Mi"
@@ -214,7 +214,7 @@ combinedVideoProcessor:
     name: "db-upload"
     image:
       repo: public.ecr.aws/q0h0t2f2/ye/test
-      tag: af21c036c54a76837366a9c7aaa95f88a20e3b83
+      tag: dec4261d2f1f0ecb1d1395f8bb7930f44bb0462c
     storageMountPath: /recordings
     resources:
       requests:
@@ -237,7 +237,7 @@ combinedVideoProcessor:
     interval: "10s"
     scrapeTimeout: "10s"
   image:
-    tag: af21c036c54a76837366a9c7aaa95f88a20e3b83
+    tag: dec4261d2f1f0ecb1d1395f8bb7930f44bb0462c
     repo: public.ecr.aws/q0h0t2f2/ye/test
 ebsStorageClass:
   name: "ebs-sc"
