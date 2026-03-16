@@ -3,6 +3,11 @@
 {{- end -}}
 
 {{- define "neves.commonLabels" -}}
+# --- Datadog Unified Service Tagging ---
+tags.datadoghq.com/env: {{ .Values.global.env | default "prod" | quote }}
+tags.datadoghq.com/service: {{ include "neves.name.app" . | quote }}
+tags.datadoghq.com/version: {{ .app.image.tag | default "latest" | quote }}
+# ---------------------------------------
 app.kubernetes.io/name: {{ .Values.teamName | quote}}
 helm.sh/chart: {{ printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | quote}}
 app.kubernetes.io/managed-by: Helm
