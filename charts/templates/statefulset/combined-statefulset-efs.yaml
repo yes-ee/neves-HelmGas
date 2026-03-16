@@ -5,7 +5,17 @@ metadata:
   name: {{ include "neves.name.app" $context }}
   namespace: {{ $.Values.teamName }}
   labels:
-    {{ include "neves.commonLabels" $context | nindent 4 }}
+    # {{ include "neves.commonLabels" $context | nindent 4 }}
+    tags.datadoghq.com/env: "prod"
+    tags.datadoghq.com/service: "combined-streaming"
+    tags.datadoghq.com/version: "dec4261d2f1f0ecb1d1395f8bb7930f44bb0462c"
+    app.kubernetes.io/name: {{ .Values.teamName | quote}}
+    helm.sh/chart: {{ printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | quote}}
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+    app.kubernetes.io/part-of: {{ .Chart.Name | quote }}
+    app: {{ include "neves.name.app" . | quote }}
 spec:
   selector:
     matchLabels:
@@ -16,9 +26,20 @@ spec:
   template:
     metadata:
       labels:
-        {{ include "neves.commonLabels" $context | nindent 8 }}
-      annotations:
+        # {{ include "neves.commonLabels" $context | nindent 8 }}
+        tags.datadoghq.com/env: "prod"
+        tags.datadoghq.com/service: "combined-streaming"
+        tags.datadoghq.com/version: "dec4261d2f1f0ecb1d1395f8bb7930f44bb0462c"
         admission.datadoghq.com/enabled: "true"
+        app.kubernetes.io/name: {{ .Values.teamName | quote}}
+        helm.sh/chart: {{ printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | quote}}
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+        app.kubernetes.io/part-of: {{ .Chart.Name | quote }}
+        app: {{ include "neves.name.app" . | quote }}
+      annotations:
+        admission.datadoghq.com/python-lib.version: v4.5.4
     spec:
       volumes:
         {{ $mediamtxContext := merge (dict "app" $.Values.combinedVideoProcessor.mediamtxContainer) . }}
@@ -30,18 +51,22 @@ spec:
         - name: {{ include "neves.name.container" $mediamtxContext }}
           image: {{ include "neves.url.image" $mediamtxContext }}
           env:
-            - name: DD_ENV
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.labels['tags.datadoghq.com/env']
-            - name: DD_SERVICE
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.labels['tags.datadoghq.com/service']
-            - name: DD_VERSION
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.labels['tags.datadoghq.com/version']
+            - name: DD_PROFILING_ENABLED
+              value: "true"
+            - name: DD_LOGS_INJECTION
+              value: "true"
+            # - name: DD_ENV
+            #   valueFrom:
+            #     fieldRef:
+            #       fieldPath: metadata.labels['tags.datadoghq.com/env']
+            # - name: DD_SERVICE
+            #   valueFrom:
+            #     fieldRef:
+            #       fieldPath: metadata.labels['tags.datadoghq.com/service']
+            # - name: DD_VERSION
+            #   valueFrom:
+            #     fieldRef:
+            #       fieldPath: metadata.labels['tags.datadoghq.com/version']
           
           ports:
             {{ range $port := $context.app.mediamtxContainer.containerPorts }}
@@ -69,18 +94,22 @@ spec:
         - name: {{ include "neves.name.container" $dbUploadContext }}
           image: {{ include "neves.url.image" $dbUploadContext }}
           env:
-            - name: DD_ENV
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.labels['tags.datadoghq.com/env']
-            - name: DD_SERVICE
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.labels['tags.datadoghq.com/service']
-            - name: DD_VERSION
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.labels['tags.datadoghq.com/version']
+            - name: DD_PROFILING_ENABLED
+              value: "true"
+            - name: DD_LOGS_INJECTION
+              value: "true"
+            # - name: DD_ENV
+            #   valueFrom:
+            #     fieldRef:
+            #       fieldPath: metadata.labels['tags.datadoghq.com/env']
+            # - name: DD_SERVICE
+            #   valueFrom:
+            #     fieldRef:
+            #       fieldPath: metadata.labels['tags.datadoghq.com/service']
+            # - name: DD_VERSION
+            #   valueFrom:
+            #     fieldRef:
+            #       fieldPath: metadata.labels['tags.datadoghq.com/version']
           envFrom:
             - configMapRef:
                 name: {{ include "neves.name.configmap" $dbUploadContext }}
