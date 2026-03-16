@@ -27,6 +27,19 @@ spec:
       containers:
         - name: {{ include "neves.name.container" $mediamtxContext }}
           image: {{ include "neves.url.image" $mediamtxContext }}
+          env:
+            - name: DD_ENV
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.labels['tags.datadoghq.com/env']
+            - name: DD_SERVICE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.labels['tags.datadoghq.com/service']
+            - name: DD_VERSION
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.labels['tags.datadoghq.com/version']
           
           ports:
             {{ range $port := $context.app.mediamtxContainer.containerPorts }}
@@ -53,6 +66,19 @@ spec:
       {{ $dbUploadContext := merge (dict "app" $.Values.combinedVideoProcessor.dbUploadContainer) . }}
         - name: {{ include "neves.name.container" $dbUploadContext }}
           image: {{ include "neves.url.image" $dbUploadContext }}
+          env:
+            - name: DD_ENV
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.labels['tags.datadoghq.com/env']
+            - name: DD_SERVICE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.labels['tags.datadoghq.com/service']
+            - name: DD_VERSION
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.labels['tags.datadoghq.com/version']
           envFrom:
             - configMapRef:
                 name: {{ include "neves.name.configmap" $dbUploadContext }}
