@@ -4,7 +4,7 @@
 
 {{- define "neves.commonLabels" -}}
 # --- Datadog Unified Service Tagging ---
-tags.datadoghq.com/env: {{ .Values.global.env | default "prod" | quote }}
+tags.datadoghq.com/env: {{ ((.Values.global | default dict).env) | default "prod" | quote }}
 tags.datadoghq.com/service: {{ include "neves.name.app" . | quote }}
 tags.datadoghq.com/version: {{ .app.image.tag | default "latest" | quote }}
 # ---------------------------------------
