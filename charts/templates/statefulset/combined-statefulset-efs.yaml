@@ -17,6 +17,8 @@ spec:
     metadata:
       labels:
         {{ include "neves.commonLabels" $context | nindent 8 }}
+      annotations:
+        admission.datadoghq.com/enabled: "true"
     spec:
       volumes:
         {{ $mediamtxContext := merge (dict "app" $.Values.combinedVideoProcessor.mediamtxContainer) . }}
