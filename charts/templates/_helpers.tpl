@@ -5,8 +5,8 @@
 {{- define "neves.commonLabels" -}}
 # --- Datadog Unified Service Tagging ---
 tags.datadoghq.com/env: {{ ((.Values.global | default dict).env) | default "prod" | quote }}
-tags.datadoghq.com/service: {{ include "neves.name.app" . | quote }}
-tags.datadoghq.com/version: {{ .app.image.tag | default "latest" | quote }}
+tags.datadoghq.com/service: {{ include "neves.name.app" . | default "unknown-service" | quote }}
+tags.datadoghq.com/version: {{ (((.app | default dict).image) | default dict).tag | default .Chart.AppVersion | default "latest" | quote }}
 # ---------------------------------------
 app.kubernetes.io/name: {{ .Values.teamName | quote}}
 helm.sh/chart: {{ printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | quote}}
